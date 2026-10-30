@@ -183,7 +183,7 @@ function showStart() {
     ? confirmModal({ title: t("newGameQ"), text: t("newGameText"), ok: t("newGame"), onOk: () => { clearGame(); showAge(); } })
     : showAge();
   const c = el.querySelector("[data-continue]");
-  if (c) c.onclick = () => { G = saved; G.undo = G.undo || []; showPass(); };
+  if (c) c.onclick = () => { G = saved; G.undo = G.undo || []; track("spel-hervat", "Spel hervat"); showPass(); };
   el.querySelector("[data-cards]").onclick = () => openManage(showStart);
   el.querySelector("[data-settings]").onclick = () => openSettings(showStart);
   el.querySelectorAll("[data-lang]").forEach(b => b.onclick = () => {
@@ -210,7 +210,7 @@ function showAge() {
   const go = () => {
     const y = +inp.value;
     if (!(y >= now - 110 && y <= now)) { err.textContent = t("ageInvalid"); inp.focus(); buzz(20); return; }
-    if (now - y < 18) { showUnderage(); return; }
+    if (now - y < 18) { track("leeftijd-te-jong", "Leeftijdscheck: jonger dan 18"); showUnderage(); return; }
     showCount();
   };
   inp.onkeydown = e => { if (e.key === "Enter") go(); };
@@ -247,6 +247,7 @@ function wireWordsPicker(box, sel, redraw) {
   box.querySelectorAll("[data-w]").forEach(i => i.oninput = () => { sel[i.dataset.w] = i.value; });
 }
 function commitWords(sel) {
+  track(`woorden-${sel.id || "eigen"}`, `Strafwoorden: ${sel.id || "eigen"}`);
   const cleaned = { id: sel.id };
   ["s1", "sN", "b1", "bN"].forEach(k => cleaned[k] = (sel[k] || "").trim().toLowerCase());
   const def = WORD_PRESETS[LANG][0];
@@ -318,7 +319,7 @@ function showNames() {
   });
   const start = useDefaults => {
     const names = Array.from({ length: setup.count }, (_, i) => (!useDefaults && (setup.names[i] || "").trim()) || t("playerN", { n: i + 1 }));
-    const begin = () => { newGame(names); showPass(); };
+    const begin = () => { newGame(names); track("spel-gestart", `Spel gestart (${names.length} spelers)`); track(`spelers-${names.length}`, `${names.length} spelers`); track(`taal-${LANG}`, `Taal ${LANG.toUpperCase()}`); showPass(); };
     WORDS.chosen ? begin() : showWords(begin);
   };
   el.querySelector("[data-go]").onclick = () => start(false);
@@ -620,7 +621,7 @@ function confirmTurn() {
 function advance() {
   G.turn += 1;
   G.current = nextIdx();
-  if (G.current === 0) G.round += 1;
+  if (G.current === 0) { G.round += 1; if ([3, 5, 10, 20].includes(G.round)) track(`ronde-${G.round}`, `Ronde ${G.round} gehaald`); }
   G.rules = G.rules.filter(r => r.expiresAt > G.turn);   // verlopen regels weg
   R = null;
   if (!persist()) { /* opslaan mislukt: spel gaat gewoon door */ }

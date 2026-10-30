@@ -183,6 +183,7 @@ function openManage(onClose) {
         const clean = normalizeCard(c);
         if (isNew) CARDS.push(clean); else CARDS[CARDS.findIndex(x => x.id === c.id)] = clean;
         persistCards();
+        if (isNew) track("kaart-toegevoegd", "Eigen kaart toegevoegd");
         shut();
         // Na het opslaan naar het level van de kaart, zodat je hem terugziet.
         M.open = { side: clean.side, level: clean.level }; M.outcome = clean.outcome;

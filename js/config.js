@@ -57,3 +57,7 @@ const MOOD_END = { lef: ["#120712", "#ff5a3c"], laf: ["#eef4ff", "#1b2f8a"] };
 
 /* ---- Teksten en labels staan in js/i18n.js (Nederlands en Engels) ---- */
 const PLAYER_COLORS = ["#ff8a3d", "#7fb7ff", "#ff8fc8", "#7fe0a8", "#ffcc2e", "#b98cff", "#ff5a3c", "#2747c9", "#3a1a6b", "#0f5a3a", "#a3300f", "#14306b"];
+
+/* ---- Bezoekersteller (GoatCounter) ----
+   Je dashboard staat op lafbekken.goatcounter.com. Leeg = er wordt niets geteld. */
+const GOATCOUNTER_CODE = "lafbekken";
