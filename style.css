@@ -1,5 +1,5 @@
 /* =========================================================================
-   LAFFAARD OF LEFGOZER · style.css
+   LAFBEKKEN style.css
    Basiskleuren, fonts en animatiecurves staan als variabelen in :root.
    De kleuren per level staan in js/config.js (LEVEL_COLORS).
    ========================================================================= */
@@ -337,3 +337,29 @@ button { cursor: pointer; border: 0; background: none; }
 .w2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
 .words .hint { margin: 10px 0 12px; }
 .res .bignum.xlong { font-size: clamp(50px, 15vw, 66px); line-height: .9; }
+
+/* ---- Panelen die omhoog veren: verlengd onder de rand ----
+   Door de veerkrachtige animatie schiet een paneel iets door. Het paneel
+   loopt daarom 80px onder het scherm door (verborgen), zodat je nooit de
+   onderrand of een gat eronder ziet. */
+.panel { bottom: -80px; padding-bottom: calc(80px + var(--safe-bottom)); max-height: calc(100% - 30px - var(--safe-top) + 80px); }
+.sheet2 { bottom: -80px; height: calc(54% + 80px); }
+.sheet2 .opt { padding-bottom: calc(90px + var(--safe-bottom)); }
+@keyframes panelup { from { transform: translateY(calc(100% + 10px)); } }
+@keyframes sheetup { from { transform: translateY(calc(100% + 10px)); } }
+/* Ruimte in plaats van een punt tussen twee stukjes tekst */
+.gap { display: inline-block; width: .75em; }
+/* Veer met een vaste, kleine overshoot (14px) in plaats van een percentage:
+   hoge panelen schoten anders verder door dan de verlenging eronder. */
+.panel { animation: panelup .62s linear both; }
+.sheet2 { animation: sheetup .62s linear both; }
+@keyframes panelup {
+  0% { transform: translateY(calc(100% + 10px)); animation-timing-function: cubic-bezier(.22,.9,.3,1); }
+  68% { transform: translateY(-14px); animation-timing-function: cubic-bezier(.4,0,.4,1); }
+  100% { transform: translateY(0); }
+}
+@keyframes sheetup {
+  0% { transform: translateY(calc(100% + 10px)); animation-timing-function: cubic-bezier(.22,.9,.3,1); }
+  68% { transform: translateY(-14px); animation-timing-function: cubic-bezier(.4,0,.4,1); }
+  100% { transform: translateY(0); }
+}

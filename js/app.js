@@ -1,5 +1,5 @@
 /* =========================================================================
-   LAFBEKKEN · app.js (winkelversie)
+   LAFBEKKEN app.js (winkelversie)
    Spellogica en schermen. Volgorde in dit bestand:
    1. Hulpfuncties      2. Spelstate        3. Gedeelde onderdelen
    4. Startschermen     5. Beurt            6. Resultaat
@@ -229,7 +229,7 @@ function showUnderage() {
 /* ---- Strafwoorden kiezen (eerste keer als stap, daarna in instellingen) ---- */
 function wordsPickerHTML(sel) {
   const presets = WORD_PRESETS[LANG];
-  const ex = w => (LANG === "nl" ? `Neem 2 ${w.sN} · Deel ${/^[aeiou]/i.test(w.b1) ? "een" : "een"} ${w.b1} uit` : `Take 2 ${w.sN} · Hand out a ${w.b1}`);
+  const ex = w => (LANG === "nl" ? `Neem 2 ${w.sN}, deel een ${w.b1} uit` : `Take 2 ${w.sN}, hand out a ${w.b1}`);
   const own = sel.id === "eigen";
   return `<div class="wlist">${presets.map(p => `<button class="wopt${sel.id === p.id ? " on" : ""}" data-preset="${p.id}"><b class="disp">${esc(cap(p.s1))} / ${esc(cap(p.b1))}</b><small>${esc(ex(p))}</small></button>`).join("")}
     <button class="wopt${own ? " on" : ""}" data-preset="eigen"><b class="disp">${t("wordsOwn")}</b><small>${own ? esc(ex(sel)) : "…"}</small></button></div>
@@ -338,13 +338,13 @@ function showPass() {
   const p = cur(), m = playerMood(p);
   const [bg, ink] = m ? moodColor(m.side, m.v) : ["#141210", "#fff6ea"];
   const face = m ? tileFace(m.side, Math.min(m.v, 4)) : "happy";
-  const status = m ? `${LEVEL_NAME[m.side]} ${m.v} · ${LABELS[m.side][Math.min(m.v, 10)]}` : t("noStreak");
+  const status = m ? `${LEVEL_NAME[m.side]} ${m.v}<i class="gap"></i>${LABELS[m.side][Math.min(m.v, 10)]}` : t("noStreak");
   const el = mount(`<div class="pad screen">
     <div class="bar"><span>${t("round", { n: G.round })}</span><button class="icon-btn" data-menu aria-label="${t("menu")}">${ICON.menu}</button></div>
     <div class="mid">
       <div class="tile pop" style="background:${bg}">${FACES[face](ink)}</div>
       <h2 class="who disp in in-1">${t("giveTo", { name: esc(p.name) })}</h2>
-      <p class="status in in-2">${esc(status)}</p>
+      <p class="status in in-2">${status}</p>
       ${p.force ? `<p class="forced in in-2">${esc(t("mustChoose", { name: p.name, side: SIDE_NAME[p.force === "risk" ? "lef" : "laf"] }))}</p>` : ""}
     </div>
     <p class="tap in in-3">${t("tapWhenReady")}</p></div>`, "pass");
@@ -446,7 +446,7 @@ function buildResult(card, side, level, v, outcome) {
 
 function showReveal() {
   currentView = showReveal;
-  const el = mount(`<p class="meta2 in">${SIDE_NAME[R.side]} · ${LEVEL_NAME[R.side].toUpperCase()} ${R.v}</p>
+  const el = mount(`<p class="meta2 in">${SIDE_NAME[R.side]}<i class="gap"></i>${LEVEL_NAME[R.side].toUpperCase()} ${R.v}</p>
     <button class="closed pop" aria-label="${t("reveal")}">${FACES.sleepy("#fff6ea")}</button>
     <p class="hint2 in in-2">${t("tapReveal")}</p>`, "reveal");
   el.onclick = () => openResult(el.querySelector(".closed"));
@@ -461,7 +461,7 @@ function bigNumber() {
   if (R.doubled === "win" && n === "atje2") return ["2 " + bigWord(2).toUpperCase(), t("twoBig")];
   if (n === "atje") return [bigWord(1).toUpperCase(), who[R.sipsTo] || ""];
   const w = sipWord(n);
-  const unit = { deal: `${w} ${t("deal")}`, self: `${w} ${t("forYou")}` }[R.sipsTo] || (who[R.sipsTo] ? `${w} · ${who[R.sipsTo]}` : w);
+  const unit = { deal: `${w} ${t("deal")}`, self: `${w} ${t("forYou")}` }[R.sipsTo] || (who[R.sipsTo] ? `${w}, ${who[R.sipsTo]}` : w);
   return [String(n), unit];
 }
 
@@ -486,7 +486,7 @@ function bandsHTML() {
     const k = c.dur === "tot gebruikt" ? t("kPower") : c.scope === "all" ? t("kAll") : t("kRule");
     const durText = durLabel(c.dur);
     const who = c.scope === "pick" ? (target ? name(target) : t("tapWho")) : name(target);
-    out.push(`<div class="band in in-3"><span class="k disp">${k}</span><b>${esc(ruleText)}</b><small>${esc(who)} · ${esc(durText)}</small></div>`);
+    out.push(`<div class="band in in-3"><span class="k disp">${k}</span><b>${esc(ruleText)}</b><small>${esc(who)}<br>${esc(durText)}</small></div>`);
   }
   if (c.force) {
     const [who, choice] = c.force.split("-");
@@ -511,7 +511,7 @@ function resultHTML() {
   const title = R.doubled ? "" : (isEvent && R.title ? R.title : "");
   const needsPick = !R.doubled && c.scope === "pick" && !R.chosen;
   return `
-    <div class="meta in"><span>${SIDE_NAME[R.side]} · ${LEVEL_NAME[R.side].toUpperCase()} ${R.v}</span><span>${R.doubled ? t("doubleOrNothing") : `${TYPE_NAME[c.type].toUpperCase()} · ${status.toUpperCase()}`}</span></div>
+    <div class="meta in"><span>${SIDE_NAME[R.side]}<i class="gap"></i>${LEVEL_NAME[R.side].toUpperCase()} ${R.v}</span><span>${R.doubled ? t("doubleOrNothing") : `${TYPE_NAME[c.type].toUpperCase()}<i class="gap"></i>${status.toUpperCase()}`}</span></div>
     ${title ? `<div class="evtitle disp${title.length > 8 ? " long" : ""}">${[...title].map(ch => `<span>${ch === " " ? "&nbsp;" : esc(ch)}</span>`).join("")}</div>` : ""}
     <div class="face">${FACES[R.face](R.color[1]).replace("<svg ", '<svg class="pop" ')}</div>
     ${big ? `<div class="bignum disp in in-1${big[0].length > 9 ? " xlong" : big[0].length > 4 ? " long" : ""}">${esc(big[0])}</div><div class="bigunit disp in in-1">${esc(big[1])}</div>` : ""}
@@ -552,7 +552,7 @@ function wireResult(el) {
     R.chosen = b.dataset.pick;
     el.querySelectorAll("[data-pick]").forEach(x => x.classList.toggle("chosen", x === b));
     const band = el.querySelector(".band small");
-    if (band) band.textContent = `${playerById(R.chosen).name} · ${durLabel(R.card.dur)}`;
+    if (band) band.innerHTML = `${esc(playerById(R.chosen).name)}<br>${esc(durLabel(R.card.dur))}`;
     el.querySelector(".hold").classList.remove("wait");
   });
   const next = G.players[nextIdx()].name;

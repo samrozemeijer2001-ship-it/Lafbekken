@@ -40,7 +40,7 @@ function openManage(onClose) {
   function home() {
     root.style.background = "var(--paper)"; root.style.color = "var(--ink)";
     root.innerHTML = `<div class="m-home">
-      <div class="head"><button class="icon-btn" data-back aria-label="${t("back")}">${ICON.back}</button><span class="lbl">${t("cardsCount", { n: CARDS.length, own: CARDS.filter(c => c.custom).length })} · ${LANG.toUpperCase()}</span></div>
+      <div class="head"><button class="icon-btn" data-back aria-label="${t("back")}">${ICON.back}</button><span class="lbl">${t("cardsCount", { n: CARDS.length, own: CARDS.filter(c => c.custom).length })}</span></div>
       <h2 class="ttl disp">${t("cards")}</h2><p class="sub">${t("tapLevel")}</p>
       <div class="m-cols"><div class="m-colh disp" style="color:#14306b">${SIDE_NAME.laf}</div><div class="m-colh disp" style="color:#a3300f">${SIDE_NAME.lef}</div>
       ${[1, 2, 3, 4].map(l => ["laf", "lef"].map(s => { const [bg, ink] = LEVEL_COLORS[s][l]; return `<button class="m-tile" data-s="${s}" data-l="${l}" style="background:${bg};color:${ink}">
@@ -61,10 +61,10 @@ function openManage(onClose) {
     root.innerHTML = `<div class="m-det">
       <div class="m-dethead" style="background:${bg}">
         <div class="h"><button class="icon-btn" data-home aria-label="${t("toOverview")}"><span style="color:${ink};display:grid">${ICON.cards}</span></button>
-          <span class="disp">${SIDE_NAME[side]} · ${level}</span>
+          <span class="disp">${SIDE_NAME[side]} ${level}</span>
           <button class="icon-btn" data-nav="-1" aria-label="${t("prevLevel")}" ${level === 1 ? "disabled style=\"opacity:.3\"" : ""}>${ICON.back}</button>
           <button class="icon-btn" data-nav="1" aria-label="${t("nextLevel")}" ${level === 4 ? "disabled style=\"opacity:.3\"" : ""}>${ICON.next}</button></div>
-        <div class="seg" style="--on:${bg};--onbg:${ink}">${["win", "lose"].map(o => `<button data-o="${o}" class="${M.outcome === o ? "on" : ""}">${OUTCOME_NAME[side][o]} · ${group(side, level, o).length}</button>`).join("")}</div>
+        <div class="seg" style="--on:${bg};--onbg:${ink}">${["win", "lose"].map(o => `<button data-o="${o}" class="${M.outcome === o ? "on" : ""}">${OUTCOME_NAME[side][o]}<i class="gap"></i>${group(side, level, o).length}</button>`).join("")}</div>
       </div>
       <div class="m-list">${list.length ? list.map(rowHTML).join("") : `<p class="m-empty">${t("noCardsYet", { o: OUTCOME_NAME[side][M.outcome].toLowerCase() })}</p>`}
         <button class="m-add" style="background:${ink};color:${bg}">${t("newCard")}</button></div></div>`;
@@ -95,11 +95,11 @@ function openManage(onClose) {
       const [n, lab] = cardNumber(c);
       return `<div class="ed-prev" style="background:${bg};color:${ink}">
         <span class="pf">${FACES[faceFor(c.side, c.level, c.outcome, c.type)](ink)}</span>
-        <span class="pm">${SIDE_NAME[c.side]} · ${LEVEL_NAME[c.side].toUpperCase()} ${c.level} · ${TYPE_NAME[c.type].toUpperCase()}</span>
+        <span class="pm">${SIDE_NAME[c.side]}<i class="gap"></i>${LEVEL_NAME[c.side].toUpperCase()} ${c.level}<i class="gap"></i>${TYPE_NAME[c.type].toUpperCase()}</span>
         <span class="pn disp">${c.type === "event" && c.title ? esc(c.title) : n ? esc(n) : TYPE_NAME[c.type]}</span>${n ? `<span class="pm">${esc((SIPS_TO_NAME[c.sipsTo] || "").toUpperCase())}</span>` : ""}
         <span class="px">${richText(c.text) || "&nbsp;"}</span>
         ${c.refuse ? `<span class="pr">${esc(t("refuse", { n: c.refuse, w: sipWord(c.refuse) }))}</span>` : ""}
-        ${c.rule ? `<span class="pr">${t("ruleLbl")}: ${richText(c.rule)} · ${esc(SCOPE_NAME[c.scope] || "")} · ${esc(DUR_NAME[c.dur] || c.dur)}</span>` : ""}
+        ${c.rule ? `<span class="pr">${t("ruleLbl")}: ${richText(c.rule)}<br>${esc(SCOPE_NAME[c.scope] || "")}, ${esc(DUR_NAME[c.dur] || c.dur)}</span>` : ""}
         ${c.force ? `<span class="pr">${t("forceLbl")}: ${FORCE_NAME[c.force]}</span>` : ""}${c.clears ? `<span class="pr">${t("clearsLbl")}</span>` : ""}</div>`;
     }
 

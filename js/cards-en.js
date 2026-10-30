@@ -1,5 +1,5 @@
 /* =========================================================================
-   DEFAULT CARDS (ENGLISH) · conceptset, nog te keuren
+   DEFAULT CARDS (ENGLISH), conceptset, nog te keuren
    Zelfde opbouw en velden als js/cards.js. De woorden sip/sips/shot worden
    in het spel vervangen door de strafwoorden die de groep kiest.
    ========================================================================= */
