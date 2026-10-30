@@ -55,18 +55,5 @@ const EVENT_COLOR = { win: ["#141210", "#ffd84a"], lose: ["#141210", "#ff5a3c"] 
 // LEF wordt steeds donkerder (verbrand), LAF steeds lichter (ijskoud).
 const MOOD_END = { lef: ["#120712", "#ff5a3c"], laf: ["#eef4ff", "#1b2f8a"] };
 
-/* ---- Statuslabels per visueel level (0 t/m 10) ---- */
-const LABELS = {
-  lef: ["Neutraal", "Warm", "Risky", "Heet", "Oververhit", "Verbrand", "Geen controle", "Donkerrood", "Zwart randje", "Geen weg terug", "Opgebrand"],
-  laf: ["Neutraal", "Safe", "Te veilig", "Verdacht", "Lafheidsmeter vol", "IJskoud", "Te stil", "Bevroren", "Wit alarm", "Geen lef gevonden", "Doorgelicht"],
-};
-
-/* ---- Teksten ---- */
-const SIDE_NAME = { laf: "LAF", lef: "LEF" };
-const LEVEL_NAME = { laf: "Level", lef: "Heat" };
-const OUTCOME_NAME = { laf: { win: "Goed", lose: "Slecht" }, lef: { win: "Winst", lose: "Verlies" } };
-const TYPE_NAME = { drink: "Drinken", challenge: "Opdracht", social: "Samen", punishment: "Straf", power: "Power", event: "Event" };
-const SIPS_TO_NAME = { deal: "Uitdelen", self: "Zelf nemen", others: "Iedereen behalve jij", all: "Iedereen", right: "Rechts van jou", left: "Links van jou" };
-const SCOPE_NAME = { self: "Zichzelf", all: "Iedereen", pick: "Speler kiest iemand", left: "Links", right: "Rechts" };
-const FORCE_NAME = { "": "Geen", "next-risk": "Volgende: LEF", "next-safe": "Volgende: LAF", "self-risk": "Zelf: LEF", "self-safe": "Zelf: LAF" };
+/* ---- Teksten en labels staan in js/i18n.js (Nederlands en Engels) ---- */
 const PLAYER_COLORS = ["#ff8a3d", "#7fb7ff", "#ff8fc8", "#7fe0a8", "#ffcc2e", "#b98cff", "#ff5a3c", "#2747c9", "#3a1a6b", "#0f5a3a", "#a3300f", "#14306b"];

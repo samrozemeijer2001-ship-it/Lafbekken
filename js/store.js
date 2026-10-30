@@ -1,10 +1,11 @@
 /* =========================================================================
    OPSLAG
-   Alles wordt lokaal op deze telefoon bewaard (localStorage). Er is geen
-   account en geen synchronisatie: op een andere telefoon begin je opnieuw.
+   Alles wordt lokaal op deze telefoon bewaard (localStorage). Kaarten worden
+   per taal bewaard (Nederlands en Engels hebben elk hun eigen set).
    ========================================================================= */
 
-const STORE_KEYS = { cards: "laffaard.cards.v1", game: "laffaard.game.v1" };
+const STORE_KEYS = { cards: () => "lafbekken.cards." + LANG + ".v1", game: "lafbekken.game.v1" };
+const defaultCards = () => (LANG === "en" ? DEFAULT_CARDS_EN : DEFAULT_CARDS);
 
 function storeRead(key) {
   try { const raw = localStorage.getItem(key); return raw ? JSON.parse(raw) : null; }
@@ -50,13 +51,13 @@ function normalizeCard(c) {
 }
 
 function loadCards() {
-  const saved = storeRead(STORE_KEYS.cards);
-  const source = Array.isArray(saved) && saved.length ? saved : DEFAULT_CARDS;
+  const saved = storeRead(STORE_KEYS.cards());
+  const source = Array.isArray(saved) && saved.length ? saved : defaultCards();
   const list = source.map(normalizeCard).filter(Boolean);
-  return list.length ? list : DEFAULT_CARDS.map(normalizeCard);
+  return list.length ? list : defaultCards().map(normalizeCard);
 }
-function saveCards(list) { return storeWrite(STORE_KEYS.cards, list); }
-function resetCards() { storeRemove(STORE_KEYS.cards); return DEFAULT_CARDS.map(normalizeCard); }
+function saveCards(list) { return storeWrite(STORE_KEYS.cards(), list); }
+function resetCards() { storeRemove(STORE_KEYS.cards()); return defaultCards().map(normalizeCard); }
 
 /* ---- Lopend spel ---- */
 function loadGame() {

@@ -1,7 +1,7 @@
 {
   "name": "Lafbekken",
   "short_name": "Lafbekken",
-  "description": "Drankspel voor één telefoon: kies LAF of LEF.",
+  "description": "Het partyspel voor één telefoon: kies laf of lef.",
   "lang": "nl",
   "start_url": "./",
   "scope": "./",

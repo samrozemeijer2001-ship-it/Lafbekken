@@ -1,5 +1,5 @@
 /* =========================================================================
-   STANDAARDKAARTEN
+   STANDAARDKAARTEN (NEDERLANDS)
    -------------------------------------------------------------------------
    Dit zijn de kaarten waarmee de app start. Je kunt ze in de app zelf
    aanpassen via 'Kaarten beheren'; die wijzigingen worden op je telefoon
@@ -14,7 +14,8 @@
      title    alleen bij events: de grote titel (bv. "FREEZE!")
      text     de kaarttekst. Placeholders: {player} {leftPlayer} {rightPlayer}
               {nextPlayer} {previousPlayer}
-     sips     getal, "atje" of 0 (groot getal op de kaart)
+     sips     getal, "atje" of 0 (woorden slok/atje worden in het spel
+              vervangen door de strafwoorden die de groep kiest) (groot getal op de kaart)
      sipsTo   voor wie de slokken zijn: deal (uitdelen), self, others
               (iedereen behalve jij), all, right, left
      refuse   wat weigeren kost (0 = niet weigerbaar)
@@ -1515,11 +1516,11 @@ const DEFAULT_CARDS = [
   "outcome": "lose",
   "type": "punishment",
   "title": "",
-  "text": "{player}, drink tot je volgende beurt met je verkeerde hand.",
+  "text": "{player}, gebruik tot je volgende beurt alleen je verkeerde hand.",
   "sips": 0,
   "sipsTo": "",
   "refuse": 0,
-  "rule": "Drink met je verkeerde hand",
+  "rule": "Alleen je verkeerde hand gebruiken",
   "scope": "self",
   "dur": "tot volgende beurt",
   "force": "",
@@ -1975,11 +1976,11 @@ const DEFAULT_CARDS = [
   "outcome": "win",
   "type": "power",
   "title": "",
-  "text": "{player}, jij bent Medusa tot je volgende beurt. Wie jou aankijkt, drinkt.",
+  "text": "{player}, jij bent Medusa tot je volgende beurt. Wie jou aankijkt, neemt 1 slok.",
   "sips": 0,
   "sipsTo": "",
   "refuse": 0,
-  "rule": "Medusa: wie {player} aankijkt, drinkt",
+  "rule": "Medusa: wie {player} aankijkt = 1 slok",
   "scope": "self",
   "dur": "tot volgende beurt",
   "force": "",
@@ -2115,11 +2116,11 @@ const DEFAULT_CARDS = [
   "outcome": "lose",
   "type": "punishment",
   "title": "",
-  "text": "{player}, je drinkt één ronde met je verkeerde hand en moet steeds proosten.",
+  "text": "{player}, je gebruikt één ronde alleen je verkeerde hand en roept voor elke slok eerst 'ik ben een lafbek'.",
   "sips": 0,
   "sipsTo": "",
   "refuse": 0,
-  "rule": "Verkeerde hand en eerst proosten",
+  "rule": "Verkeerde hand en 'ik ben een lafbek' voor elke slok",
   "scope": "self",
   "dur": "1 ronde",
   "force": "",
@@ -2335,7 +2336,7 @@ const DEFAULT_CARDS = [
   "outcome": "win",
   "type": "event",
   "title": "CHAOS!",
-  "text": "Tot de volgende beurt van {player} roept iedereen eerst '{player}!' voor het drinken.",
+  "text": "Tot de volgende beurt van {player} roept iedereen eerst '{player}!' voor iedere slok.",
   "sips": 0,
   "sipsTo": "",
   "refuse": 0,
@@ -2395,7 +2396,7 @@ const DEFAULT_CARDS = [
   "outcome": "lose",
   "type": "challenge",
   "title": "",
-  "text": "{player}, geef de groep een reden waarom je niet zou moeten atten. De groep bepaalt of die wordt goedgekeurd.",
+  "text": "{player}, geef de groep een reden waarom je geen atje zou moeten krijgen. De groep bepaalt of die wordt goedgekeurd.",
   "sips": 0,
   "sipsTo": "",
   "refuse": 0,
@@ -2415,7 +2416,7 @@ const DEFAULT_CARDS = [
   "outcome": "lose",
   "type": "challenge",
   "title": "",
-  "text": "{player}, haal iemand over om een atje mee te doen, of neem ze allebei zelf.",
+  "text": "{player}, haal iemand over om ook een atje te nemen, of neem ze allebei zelf.",
   "sips": 0,
   "sipsTo": "",
   "refuse": 0,

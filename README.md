@@ -1,4 +1,27 @@
-# Lafbekken (privéversie)
+# Lafbekken (winkelversie, in opbouw)
+
+Dit is de basis voor de App Store- en Play Store-versie. Ten opzichte van de
+privéversie is dit nieuw:
+
+- **Strafwoorden**: de groep kiest bij het eerste spel hoe een kleine en een
+  grote straf heet (standaard *kleine straf / grote straf*, of *slok / atje*,
+  *strafpunt / superstraf*, of zelf typen). Later aan te passen via het
+  tandwiel op het startscherm of *Instellingen* in het menu. Alle
+  kaartteksten worden automatisch omgezet. Woorden worden per taal bewaard.
+- **18+-check**: bij elk nieuw spel vult degene met de telefoon zijn
+  geboortejaar in. Onder de 18 kan er niet gespeeld worden.
+- **Nederlands en Engels**: wisselknop NL/EN op het startscherm. Alle teksten
+  staan in `js/i18n.js`. De Engelse kaarten staan in `js/cards-en.js`
+  (conceptset, nog te keuren). Elke taal heeft zijn eigen kaartenset en eigen
+  aanpassingen.
+- **Winkeltekst**: geen drank in de app-omschrijving; de kaartsoort 'drinken'
+  heet nu 'Straffen'.
+
+Nog niet in deze versie: accounts, betaalde pakketten, kaarteditor achter
+betaling en advertenties. Die volgen in de volgende stappen.
+
+---
+
 
 Drankspel voor één telefoon. Iedereen kiest om de beurt **LAF** (veilig) of **LEF** (alles of niets). Dit is de privéversie om zelf mee te spelen: geen accounts, geen server, alles staat op je telefoon.
 

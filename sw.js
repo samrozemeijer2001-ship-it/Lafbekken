@@ -2,10 +2,10 @@
    internet opent. Verhoog VERSION als je bestanden aanpast; dan haalt de
    app de nieuwe versie op en ruimt de oude op. */
 const VERSION = "v1";
-const CACHE = "laffaard-" + VERSION;
+const CACHE = "lafbekken-store-" + VERSION;
 const FILES = [
   "./", "./index.html", "./style.css", "./manifest.webmanifest",
-  "./js/config.js", "./js/cards.js", "./js/faces.js", "./js/store.js", "./js/manage.js", "./js/app.js",
+  "./js/config.js", "./js/i18n.js", "./js/cards.js", "./js/cards-en.js", "./js/faces.js", "./js/store.js", "./js/manage.js", "./js/app.js",
   "./fonts/barlow-condensed-latin-900-normal.woff2",
   "./fonts/rubik-latin-400-normal.woff2", "./fonts/rubik-latin-600-normal.woff2", "./fonts/rubik-latin-700-normal.woff2",
   "./fonts/rubik-latin-800-normal.woff2", "./fonts/rubik-latin-900-normal.woff2",
@@ -19,7 +19,7 @@ self.addEventListener("install", e => {
 self.addEventListener("activate", e => {
   // Alleen eigen, oude caches opruimen.
   e.waitUntil(caches.keys()
-    .then(keys => Promise.all(keys.filter(k => k.startsWith("laffaard-") && k !== CACHE).map(k => caches.delete(k))))
+    .then(keys => Promise.all(keys.filter(k => k.startsWith("lafbekken-store-") && k !== CACHE).map(k => caches.delete(k))))
     .then(() => self.clients.claim()));
 });
 
