@@ -37,6 +37,8 @@ const W = () => WORDS[LANG];
 const sipWord = n => (n === 1 ? W().s1 : W().sN);
 const bigWord = n => (n === 1 ? W().b1 : W().bN);
 const cap = s => s ? s[0].toUpperCase() + s.slice(1) : s;
+// Weigerprijs als tekst: een aantal kleine straffen, of één grote straf ("atje").
+const refuseLabel = n => (n === "atje" ? t("refuse", { n: "", w: bigWord(1) }) : t("refuse", { n, w: sipWord(n) })).replace(/\s+/g, " ");
 
 /* ---- Kaartteksten omzetten naar de gekozen woorden ----
    Nederlandse kaarten gebruiken 'slok/slokken/atje', Engelse 'sip/sips/shot'. */
@@ -51,7 +53,8 @@ function applyWords(text) {
       .replace(/\bslok\b/gi, m => keepCase(m, w.s1))
       .replace(/\b(\d+) atjes?\b/gi, (m, n) => `${n} ${bigWord(+n)}`)
       .replace(/\batjes\b/gi, m => keepCase(m, w.bN))
-      .replace(/\batje\b/gi, m => keepCase(m, w.b1));
+      .replace(/\batje\b/gi, m => keepCase(m, w.b1))
+      .replace(/\batten\b/gi, () => `een ${w.b1} nemen`);
   }
   return text
     .replace(/\b(\d+) sips?\b/gi, (m, n) => `${n} ${sipWord(+n)}`)

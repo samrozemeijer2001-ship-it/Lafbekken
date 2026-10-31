@@ -7,6 +7,7 @@
 
 const TOKENS = () => ({ player: t("tokPlayer"), leftPlayer: t("tokLeft"), rightPlayer: t("tokRight"), nextPlayer: t("tokNext") });
 const SIPS_STEPS = [0, 1, 2, 3, 4, 5, 6, 7, 8, 10, 12, "atje"];
+const REFUSE_STEPS = [0, 1, 2, 3, 4, 5, 6, 7, 8, 10, 12, "atje"];
 
 // Tekst met {player} enz. als leesbare labeltjes.
 const richText = s => esc(applyWords(s)).replace(/\{(\w+)\}/g, (m, k) => `<span class="tok">${TOKENS()[k] || (k === "previousPlayer" ? t("tokPrev") : k)}</span>`);
@@ -98,7 +99,7 @@ function openManage(onClose) {
         <span class="pm">${SIDE_NAME[c.side]}<i class="gap"></i>${LEVEL_NAME[c.side].toUpperCase()} ${c.level}<i class="gap"></i>${TYPE_NAME[c.type].toUpperCase()}</span>
         <span class="pn disp">${c.type === "event" && c.title ? esc(c.title) : n ? esc(n) : TYPE_NAME[c.type]}</span>${n ? `<span class="pm">${esc((SIPS_TO_NAME[c.sipsTo] || "").toUpperCase())}</span>` : ""}
         <span class="px">${richText(c.text) || "&nbsp;"}</span>
-        ${c.refuse ? `<span class="pr">${esc(t("refuse", { n: c.refuse, w: sipWord(c.refuse) }))}</span>` : ""}
+        ${c.refuse ? `<span class="pr">${esc(refuseLabel(c.refuse))}</span>` : ""}
         ${c.rule ? `<span class="pr">${t("ruleLbl")}: ${richText(c.rule)}<br>${esc(SCOPE_NAME[c.scope] || "")}, ${esc(DUR_NAME[c.dur] || c.dur)}</span>` : ""}
         ${c.force ? `<span class="pr">${t("forceLbl")}: ${FORCE_NAME[c.force]}</span>` : ""}${c.clears ? `<span class="pr">${t("clearsLbl")}</span>` : ""}</div>`;
     }
@@ -119,7 +120,7 @@ function openManage(onClose) {
           <div class="toks">${Object.entries(TOKENS()).map(([k, v]) => `<button type="button" data-tok="${k}">+ ${v}</button>`).join("")}</div>
           ${c.type === "drink" ? `<div class="fl">${t("fNumber")}</div><div class="step"><button type="button" data-sip="-1" aria-label="${t("less")}">−</button><span class="v disp">${c.sips === "atje" ? esc(bigWord(1).toUpperCase()) : c.sips || "—"}<small>${c.sips && c.sips !== "atje" ? esc(sipWord(c.sips)) : c.sips ? "" : t("noNumber")}</small></span><button type="button" data-sip="1" aria-label="${t("more")}">+</button></div>
             ${c.sips ? `<div class="fl">${t("fForWho")}</div><div class="opts c3">${Object.entries(SIPS_TO_NAME).map(([k, v]) => opt("sipsTo", k, v)).join("")}</div>` : ""}` : ""}
-          <div class="fl">${t("fRefuse")}</div><div class="step"><button type="button" data-ref="-1" aria-label="${t("less")}">−</button><span class="v disp">${c.refuse || "—"}<small>${c.refuse ? esc(sipWord(c.refuse)) : t("notRefusable")}</small></span><button type="button" data-ref="1" aria-label="${t("more")}">+</button></div>
+          <div class="fl">${t("fRefuse")}</div><div class="step"><button type="button" data-ref="-1" aria-label="${t("less")}">−</button><span class="v disp">${c.refuse === "atje" ? esc(bigWord(1).toUpperCase()) : c.refuse || "—"}<small>${c.refuse === "atje" ? "" : c.refuse ? esc(sipWord(c.refuse)) : t("notRefusable")}</small></span><button type="button" data-ref="1" aria-label="${t("more")}">+</button></div>
           <div class="fl">${t("fRule")}</div><input class="inp" data-rule maxlength="60" placeholder="${t("rulePh")}" value="${esc(c.rule)}">
           ${c.rule ? `<div class="fl">${t("fRuleFor")}</div><div class="opts c3">${Object.entries(SCOPE_NAME).map(([k, v]) => opt("scope", k, v)).join("")}</div>
             <div class="fl">${t("fHowLong")}</div><div class="opts c2">${Object.keys(DURATIONS).map(d => opt("dur", d, d === "tot gebruikt" ? t("untilUsedPower") : cap(DUR_NAME[d] || d))).join("")}</div>` : ""}
@@ -173,13 +174,14 @@ function openManage(onClose) {
         c.sipsTo = c.sips ? (c.sipsTo || (c.outcome === "win" ? "deal" : "self")) : "";
         draw(true);
       });
-      ov.querySelectorAll("[data-ref]").forEach(b => b.onclick = () => { readInputs(); c.refuse = Math.max(0, Math.min(20, c.refuse + +b.dataset.ref)); draw(true); });
+      ov.querySelectorAll("[data-ref]").forEach(b => b.onclick = () => { readInputs(); const i = Math.max(0, REFUSE_STEPS.indexOf(c.refuse)); c.refuse = REFUSE_STEPS[Math.max(0, Math.min(REFUSE_STEPS.length - 1, i + +b.dataset.ref))]; draw(true); });
       const ri = ov.querySelector("[data-rule]");
       ri.onchange = () => { readInputs(); if (c.rule && !c.scope) c.scope = "self"; if (c.rule && !c.dur) c.dur = "tot volgende beurt"; if (!c.rule) { c.scope = ""; c.dur = ""; } draw(true); };
       ov.querySelector("[data-save]").onclick = () => {
         readInputs();
         if (c.text.replace(/\{\w+\}/g, "").replace(/[,.\s]/g, "").length < 3) { toast(t("writeText")); ta.focus(); return; }
         if (c.type === "event" && !c.title) c.title = "EVENT";
+        if (!c.custom) c.edited = true;      // jouw aanpassing blijft bij updates staan
         const clean = normalizeCard(c);
         if (isNew) CARDS.push(clean); else CARDS[CARDS.findIndex(x => x.id === c.id)] = clean;
         persistCards();

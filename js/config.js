@@ -35,7 +35,7 @@ const MIN_PLAYERS = 3;
 const MAX_PLAYERS = 12;
 
 /* ---- Overig ---- */
-const HISTORY_SIZE = 8;      // zoveel recente kaarten per kant komen niet direct terug
+const HISTORY_SIZE = 40;     // zoveel recente kaarten per kant komen niet direct terug
 const HOLD_MS = 750;         // zo lang moet je de doorgeefknop vasthouden
 const DELETE_HOLD_MS = 900;  // zo lang moet je 'verwijderen' vasthouden
 const UNDO_DEPTH = 15;       // zoveel beurten kun je terug

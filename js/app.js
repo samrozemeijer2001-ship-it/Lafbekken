@@ -517,7 +517,7 @@ function resultHTML() {
     <div class="face">${FACES[R.face](R.color[1]).replace("<svg ", '<svg class="pop" ')}</div>
     ${big ? `<div class="bignum disp in in-1${big[0].length > 9 ? " xlong" : big[0].length > 4 ? " long" : ""}">${esc(big[0])}</div><div class="bigunit disp in in-1">${esc(big[1])}</div>` : ""}
     <p class="text in in-2">${esc(R.text)}</p>
-    ${R.refuse && !R.doubled ? `<p class="refuse in in-3">${esc(t("refuse", { n: R.refuse, w: sipWord(R.refuse) }))}</p>` : ""}
+    ${R.refuse && !R.doubled ? `<p class="refuse in in-3">${esc(refuseLabel(R.refuse))}</p>` : ""}
     <div class="extra">${bandsHTML()}${pickerHTML()}</div>
     <div class="hold in in-4${needsPick ? " wait" : ""}" role="button" tabindex="0" aria-label="${t("holdToPass")}"><div class="fill"></div><div class="lbl disp">${t("holdToPass")}</div></div>`;
 }
