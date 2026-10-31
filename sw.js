@@ -1,7 +1,7 @@
 /* Service worker: bewaart de app op je telefoon zodat hij ook zonder
    internet opent. Verhoog VERSION als je bestanden aanpast; dan haalt de
    app de nieuwe versie op en ruimt de oude op. */
-const VERSION = "v7";
+const VERSION = "v8";
 const CACHE = "lafbekken-store-" + VERSION;
 const FILES = [
   "./", "./index.html", "./style.css", "./manifest.webmanifest",
