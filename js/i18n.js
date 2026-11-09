@@ -69,7 +69,7 @@ function applyWords(text) {
 const STR = {
   nl: {
     tagline: "Laf of lef?", newGame: "Nieuw spel", continue: "Verder spelen", manageCards: "Kaarten beheren", settings: "Instellingen",
-    playResponsibly: "Speel verantwoord, alleen voor 18+",
+    playResponsibly: "Speel verantwoord, alleen voor 18+", privacy: "Privacy",
     newGameQ: "Nieuw spel?", newGameText: "Het opgeslagen spel wordt dan gewist.",
     back: "Terug", next: "Verder", start: "Starten", cancel: "Annuleren", yes: "Ja", close: "Sluiten",
     stepOf: "Stap {a} van {b}", howMany: "Hoeveel<br>spelers?", playersRange: "{min} tot {max} spelers",
@@ -87,7 +87,7 @@ const STR = {
     blocked: "{name} MOET {side}",
     fallbackWin: "{player}, hier staan geen actieve kaarten. Deel 2 slokken uit.", fallbackLose: "{player}, hier staan geen actieve kaarten. Neem 2 slokken.",
     reveal: "Kaart onthullen", tapReveal: "Tik om te onthullen",
-    twoBig: "aan twee verschillende mensen", deal: "uitdelen", forYou: "voor jou", othersThanYou: "iedereen behalve jij", forName: "voor {name}",
+    twoBig: "aan twee verschillende mensen", dealHintMany: "Verdeel ze zoals je wilt, over één of meer spelers.", dealHintOne: "Geef hem aan wie je wilt.", dealHintBig: "Geef hem aan één speler naar keuze.", deal: "uitdelen", forYou: "voor jou", othersThanYou: "iedereen behalve jij", forName: "voor {name}",
     kPower: "POWER", kAll: "IEDEREEN", kRule: "REGEL", untilUsed: "Blijft tot het gebruikt is", untilNextTurnOf: "Tot de volgende beurt van {name}", lasts: "Geldt {dur}",
     tapWho: "Tik hieronder wie het wordt", mustNext: "{name} moet volgende beurt {side}", otherBlocked: "{side} is dan geblokkeerd", replacesForce: ", vervangt de vorige force",
     kGone: "WEG", clearsAll: "Alle regels, powers en forces vervallen", whenPass: "Gebeurt zodra je doorgeeft",
@@ -119,7 +119,7 @@ const STR = {
   },
   en: {
     tagline: "Safe or risk?", newGame: "New game", continue: "Continue", manageCards: "Manage cards", settings: "Settings",
-    playResponsibly: "Play responsibly, 18+ only",
+    playResponsibly: "Play responsibly, 18+ only", privacy: "Privacy",
     newGameQ: "New game?", newGameText: "Your saved game will be deleted.",
     back: "Back", next: "Next", start: "Start", cancel: "Cancel", yes: "Yes", close: "Close",
     stepOf: "Step {a} of {b}", howMany: "How many<br>players?", playersRange: "{min} to {max} players",
@@ -137,7 +137,7 @@ const STR = {
     blocked: "{name} MUST PICK {side}",
     fallbackWin: "{player}, there are no active cards here. Hand out 2 sips.", fallbackLose: "{player}, there are no active cards here. Take 2 sips.",
     reveal: "Reveal card", tapReveal: "Tap to reveal",
-    twoBig: "to two different people", deal: "hand out", forYou: "for you", othersThanYou: "everyone but you", forName: "for {name}",
+    twoBig: "to two different people", dealHintMany: "Split them however you like, over one or more players.", dealHintOne: "Give it to anyone you like.", dealHintBig: "Give it to one player of your choice.", deal: "to hand out", forYou: "for you", othersThanYou: "everyone but you", forName: "for {name}",
     kPower: "POWER", kAll: "EVERYONE", kRule: "RULE", untilUsed: "Stays until it's used", untilNextTurnOf: "Until {name}'s next turn", lasts: "Lasts {dur}",
     tapWho: "Tap below who it'll be", mustNext: "{name} must pick {side} next turn", otherBlocked: "{side} will be blocked", replacesForce: ", replaces the previous force",
     kGone: "GONE", clearsAll: "All rules, powers and forces are wiped", whenPass: "Happens when you pass the phone",

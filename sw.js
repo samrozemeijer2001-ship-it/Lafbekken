@@ -1,11 +1,11 @@
 /* Service worker: bewaart de app op je telefoon zodat hij ook zonder
    internet opent. Verhoog VERSION als je bestanden aanpast; dan haalt de
    app de nieuwe versie op en ruimt de oude op. */
-const VERSION = "v8";
+const VERSION = "v12";
 const CACHE = "lafbekken-store-" + VERSION;
 const FILES = [
   "./", "./index.html", "./style.css", "./manifest.webmanifest",
-  "./js/config.js", "./js/stats.js", "./js/i18n.js", "./js/cards.js", "./js/cards-en.js", "./js/faces.js", "./js/store.js", "./js/manage.js", "./js/app.js",
+  "./js/native.js", "./js/config.js", "./js/stats.js", "./js/i18n.js", "./js/cards.js", "./js/cards-en.js", "./js/faces.js", "./js/store.js", "./js/manage.js", "./js/app.js",
   "./fonts/barlow-condensed-latin-900-normal.woff2",
   "./fonts/rubik-latin-400-normal.woff2", "./fonts/rubik-latin-600-normal.woff2", "./fonts/rubik-latin-700-normal.woff2",
   "./fonts/rubik-latin-800-normal.woff2", "./fonts/rubik-latin-900-normal.woff2",

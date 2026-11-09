@@ -91,6 +91,7 @@ function mount(html, cls = "") {
   app.querySelectorAll(":scope > .screen:not(.manage)").forEach(s => s.remove());
   app.prepend(el);
   animateFacesIn(el);
+  nativeStatusFor("#fff6ea");
   return el;
 }
 
@@ -101,7 +102,7 @@ function toast(text) {
   app.appendChild(d);
   setTimeout(() => d.remove(), 2900);
 }
-const buzz = ms => { try { navigator.vibrate && navigator.vibrate(ms); } catch (e) { } };
+const buzz = ms => { try { if (!nativeBuzz(ms)) navigator.vibrate && navigator.vibrate(ms); } catch (e) { } };
 
 // Overlay met paneel van onderen. Geeft {el, close} terug.
 function openPanel(html, { full = false } = {}) {
@@ -178,7 +179,7 @@ function showStart() {
       <div class="row2"><button class="btn btn-soft" data-cards>${t("manageCards")}</button><button class="btn btn-soft btn-sq" data-settings aria-label="${t("settings")}">${ICON.gear}</button></div>
     </div>
     <div class="langsw in in-3" role="group" aria-label="${t("language")}"><button data-lang="nl" class="${LANG === "nl" ? "on" : ""}">NL</button><button data-lang="en" class="${LANG === "en" ? "on" : ""}">EN</button></div>
-    <p class="foot">${t("playResponsibly")}</p></div>`, "start");
+    <p class="foot">${t("playResponsibly")}<br><a href="privacy.html#${LANG}" class="footlink">${t("privacy")}</a></p></div>`, "start");
   el.querySelector("[data-new]").onclick = () => saved
     ? confirmModal({ title: t("newGameQ"), text: t("newGameText"), ok: t("newGame"), onOk: () => { clearGame(); showAge(); } })
     : showAge();
@@ -466,6 +467,13 @@ function bigNumber() {
   return [String(n), unit];
 }
 
+// Korte uitleg onder uitdeelkaarten: mag je verdelen of niet?
+function dealHint() {
+  if (R.doubled || R.sipsTo !== "deal" || !R.sips) return "";
+  const key = R.sips === "atje" ? "dealHintBig" : R.sips === 1 ? "dealHintOne" : "dealHintMany";
+  return `<p class="dealhint in in-1">${esc(t(key))}</p>`;
+}
+
 function ruleTarget(card, chosenId) {
   const P = G.players, i = R.player;
   return { self: P[i].id, all: "all", pick: chosenId, left: P[(i - 1 + P.length) % P.length].id, right: P[nextIdx(i)].id }[card.scope];
@@ -515,7 +523,7 @@ function resultHTML() {
     <div class="meta in"><span>${SIDE_NAME[R.side]}<i class="gap"></i>${LEVEL_NAME[R.side].toUpperCase()} ${R.v}</span><span>${R.doubled ? t("doubleOrNothing") : `${TYPE_NAME[c.type].toUpperCase()}<i class="gap"></i>${status.toUpperCase()}`}</span></div>
     ${title ? `<div class="evtitle disp${title.length > 8 ? " long" : ""}">${[...title].map(ch => `<span>${ch === " " ? "&nbsp;" : esc(ch)}</span>`).join("")}</div>` : ""}
     <div class="face">${FACES[R.face](R.color[1]).replace("<svg ", '<svg class="pop" ')}</div>
-    ${big ? `<div class="bignum disp in in-1${big[0].length > 9 ? " xlong" : big[0].length > 4 ? " long" : ""}">${esc(big[0])}</div><div class="bigunit disp in in-1">${esc(big[1])}</div>` : ""}
+    ${big ? `<div class="bignum disp in in-1${big[0].length > 9 ? " xlong" : big[0].length > 4 ? " long" : ""}">${esc(big[0])}</div><div class="bigunit disp in in-1">${esc(big[1])}</div>${dealHint()}` : ""}
     <p class="text in in-2">${esc(R.text)}</p>
     ${R.refuse && !R.doubled ? `<p class="refuse in in-3">${esc(refuseLabel(R.refuse))}</p>` : ""}
     <div class="extra">${bandsHTML()}${pickerHTML()}</div>
@@ -539,6 +547,7 @@ function renderResult(fresh) {
   const el = document.createElement("div");
   el.className = "screen res" + (isEvent ? " event" : "") + (R.card.scope === "pick" && !R.doubled ? " compact" : "");
   el.style.background = R.color[0]; el.style.color = R.color[1]; el.style.setProperty("--bg", R.color[0]);
+  nativeStatusFor(R.color[0]);
   el.innerHTML = resultHTML();
   if (!fresh) el.querySelectorAll(".in, .pop").forEach(x => x.style.animation = "none");
   app.querySelectorAll(":scope > .screen:not(.manage)").forEach(s => s.remove());
@@ -701,6 +710,6 @@ function openPlayers() {
 showStart();
 
 // Service worker voor offline gebruik (alleen via http(s), niet vanaf een bestand).
-if ("serviceWorker" in navigator && location.protocol.startsWith("http")) {
+if (!IS_NATIVE && "serviceWorker" in navigator && location.protocol.startsWith("http")) {
   window.addEventListener("load", () => navigator.serviceWorker.register("./sw.js").catch(() => { }));
 }

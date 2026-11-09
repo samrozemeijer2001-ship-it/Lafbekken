@@ -1,0 +1,40 @@
+<!doctype html><html lang="nl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Lafbekken: support</title><style>
+:root{--ink:#141210;--paper:#fff6ea}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.55 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif}
+main{max-width:720px;margin:0 auto;padding:32px 20px 64px}
+h1{font-size:34px;line-height:1.05;margin:0 0 6px;letter-spacing:-.01em}h2{font-size:20px;margin:32px 0 6px}
+.lang{display:inline-flex;gap:4px;background:rgba(20,18,16,.07);border-radius:12px;padding:4px;margin:14px 0 4px}
+.lang a{padding:6px 12px;border-radius:9px;color:var(--ink);text-decoration:none;font-weight:700;font-size:14px}.lang a.on{background:var(--ink);color:var(--paper)}
+.muted{opacity:.65;font-size:14px}a{color:inherit}section{display:none}section:target,section.show{display:block}
+.box{background:#fff;border-radius:16px;padding:16px 18px;margin:12px 0}
+</style></head><body><main>
+<h1>Lafbekken</h1><p class="muted">Het partyspel voor één telefoon. The party game for one phone.</p>
+<div class="lang"><a href="#nl">NL</a><a href="#en">EN</a></div>
+<section id="nl">
+<h2>Hoe werkt het?</h2>
+<p>Je geeft één telefoon rond. Wie aan de beurt is kiest LAF of LEF. LAF is veilig, tot je het te vaak kiest. LEF is altijd 50/50, en hoe vaker je het kiest, hoe hoger de inzet. Daarnaast zijn er opdrachten, duels, groepsspelletjes, regels die blijven hangen, jokers en events. De groep bepaalt zelf wat een kleine en een grote straf is.</p>
+<h2>Veelgestelde vragen</h2>
+<p><b>Kan ik eigen kaarten maken?</b> Ja, via Kaarten beheren op het startscherm of in het menu tijdens het spel.</p>
+<p><b>Ik heb per ongeluk getikt.</b> Open het menu en kies Terugdraaien.</p>
+<p><b>Iemand doet later mee of gaat eerder weg.</b> Via Spelers in het menu voeg je iemand toe of haal je iemand weg.</p>
+<p><b>Mijn kaarten zijn weg na een nieuwe telefoon.</b> Kaarten worden alleen op je eigen telefoon bewaard en gaan niet mee naar een nieuw toestel.</p>
+<h2>Contact</h2>
+<p>Vraag, idee of iets kapot? Mail naar <a href="mailto:JOUW-EMAILADRES@voorbeeld.nl">JOUW-EMAILADRES@voorbeeld.nl</a>.</p>
+<p><a href="privacy.html#nl">Privacy</a></p>
+</section>
+<section id="en">
+<h2>How does it work?</h2>
+<p>Pass one phone around. Whoever's turn it is picks SAFE or RISK. SAFE is safe, until you pick it too often. RISK is always 50/50, and the more often you pick it, the higher the stakes. There are also challenges, duels, group games, lasting rules, jokers and events. The group decides what a small and a big penalty means.</p>
+<h2>FAQ</h2>
+<p><b>Can I make my own cards?</b> Yes, via Manage cards on the start screen or in the menu during a game.</p>
+<p><b>I tapped by accident.</b> Open the menu and choose Undo.</p>
+<p><b>Someone joins late or leaves early.</b> Use Players in the menu to add or remove someone.</p>
+<p><b>My cards are gone on my new phone.</b> Cards are only stored on your own phone and don't move to a new device.</p>
+<h2>Contact</h2>
+<p>Question, idea or something broken? Email <a href="mailto:JOUW-EMAILADRES@voorbeeld.nl">JOUW-EMAILADRES@voorbeeld.nl</a>.</p>
+<p><a href="privacy.html#en">Privacy</a></p>
+</section>
+<script>
+const s=location.hash==='#en'?'en':(location.hash==='#nl'?'nl':((navigator.language||'nl').startsWith('nl')?'nl':'en'));
+document.getElementById(s).classList.add('show');document.querySelectorAll('.lang a').forEach(a=>{a.classList.toggle('on',a.getAttribute('href')==='#'+s);a.onclick=()=>{document.querySelectorAll('section').forEach(x=>x.classList.remove('show'));document.getElementById(a.getAttribute('href').slice(1)).classList.add('show');document.querySelectorAll('.lang a').forEach(b=>b.classList.toggle('on',b===a));};});
+</script></main></body></html>

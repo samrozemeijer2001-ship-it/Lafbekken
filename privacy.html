@@ -1,0 +1,50 @@
+<!doctype html><html lang="nl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Lafbekken: privacy</title><style>
+:root{--ink:#141210;--paper:#fff6ea}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.55 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif}
+main{max-width:720px;margin:0 auto;padding:32px 20px 64px}
+h1{font-size:34px;line-height:1.05;margin:0 0 6px;letter-spacing:-.01em}h2{font-size:20px;margin:32px 0 6px}
+.lang{display:inline-flex;gap:4px;background:rgba(20,18,16,.07);border-radius:12px;padding:4px;margin:14px 0 4px}
+.lang a{padding:6px 12px;border-radius:9px;color:var(--ink);text-decoration:none;font-weight:700;font-size:14px}.lang a.on{background:var(--ink);color:var(--paper)}
+.muted{opacity:.65;font-size:14px}a{color:inherit}section{display:none}section:target,section.show{display:block}
+.box{background:#fff;border-radius:16px;padding:16px 18px;margin:12px 0}
+</style></head><body><main>
+<h1>Privacy</h1><p class="muted">Lafbekken, laatst bijgewerkt: 31 oktober 2026</p>
+<div class="lang"><a href="#nl">NL</a><a href="#en">EN</a></div>
+<section id="nl">
+<div class="box"><b>Kort gezegd:</b> de Lafbekken-app verzamelt geen persoonsgegevens. Alles wat je invult blijft op je eigen telefoon.</div>
+<h2>Wat de app op je telefoon bewaart</h2>
+<p>Om het spel te laten werken bewaart de app op je eigen toestel: de namen van spelers in een lopend spel, je eigen en aangepaste kaarten, de strafwoorden die je kiest en je taalkeuze. Deze gegevens verlaten je telefoon niet en worden niet naar ons of naar anderen gestuurd. Als je de app verwijdert, verdwijnen ze ook.</p>
+<h2>Leeftijdscheck</h2>
+<p>Bij elk nieuw spel vraagt de app een geboortejaar om te controleren of je 18 jaar of ouder bent. Dat jaartal wordt alleen gebruikt voor die controle en niet opgeslagen of verstuurd.</p>
+<h2>Geen tracking, geen advertenties</h2>
+<p>De app bevat geen advertenties, geen analysesoftware van derden en volgt je niet over andere apps of websites. Er is geen account nodig.</p>
+<h2>Apple</h2>
+<p>Apple kan bij het downloaden en gebruiken van apps zelf anonieme statistieken en crashrapporten verzamelen als je daar in je iPhone-instellingen toestemming voor hebt gegeven. Daarvoor geldt het privacybeleid van Apple.</p>
+<h2>Website</h2>
+<p>Op de webversie van Lafbekken gebruiken we GoatCounter om anoniem te tellen hoe vaak het spel wordt geopend en gestart. GoatCounter gebruikt geen cookies en slaat geen IP-adressen of andere persoonsgegevens op. In de iPhone-app staat deze teller uit.</p>
+<h2>Kinderen</h2>
+<p>Lafbekken is bedoeld voor spelers van 18 jaar en ouder.</p>
+<h2>Vragen</h2>
+<p>Heb je een vraag over privacy? Mail naar <a href="mailto:JOUW-EMAILADRES@voorbeeld.nl">JOUW-EMAILADRES@voorbeeld.nl</a>.</p>
+</section>
+<section id="en">
+<div class="box"><b>In short:</b> the Lafbekken app does not collect any personal data. Everything you enter stays on your own phone.</div>
+<h2>What the app stores on your phone</h2>
+<p>To make the game work, the app stores on your own device: player names in a game in progress, your own and edited cards, the penalty words you choose and your language. This data never leaves your phone and is not sent to us or anyone else. If you delete the app, it is deleted too.</p>
+<h2>Age check</h2>
+<p>At the start of every game the app asks for a birth year to check that you are 18 or older. That year is only used for this check and is not stored or sent anywhere.</p>
+<h2>No tracking, no ads</h2>
+<p>The app contains no ads, no third-party analytics and does not track you across other apps or websites. No account is needed.</p>
+<h2>Apple</h2>
+<p>Apple may collect anonymous statistics and crash reports when you download and use apps, if you allowed this in your iPhone settings. Apple's privacy policy applies to that.</p>
+<h2>Website</h2>
+<p>On the web version of Lafbekken we use GoatCounter to anonymously count how often the game is opened and started. GoatCounter uses no cookies and does not store IP addresses or other personal data. This counter is switched off in the iPhone app.</p>
+<h2>Children</h2>
+<p>Lafbekken is intended for players aged 18 and over.</p>
+<h2>Questions</h2>
+<p>Questions about privacy? Email <a href="mailto:JOUW-EMAILADRES@voorbeeld.nl">JOUW-EMAILADRES@voorbeeld.nl</a>.</p>
+</section>
+<script>
+const s=location.hash==='#en'?'en':(location.hash==='#nl'?'nl':((navigator.language||'nl').startsWith('nl')?'nl':'en'));
+document.getElementById(s).classList.add('show');document.querySelectorAll('.lang a').forEach(a=>{a.classList.toggle('on',a.getAttribute('href')==='#'+s);a.onclick=()=>{document.querySelectorAll('section').forEach(x=>x.classList.remove('show'));document.getElementById(a.getAttribute('href').slice(1)).classList.add('show');document.querySelectorAll('.lang a').forEach(b=>b.classList.toggle('on',b===a));};});
+</script></main></body></html>
