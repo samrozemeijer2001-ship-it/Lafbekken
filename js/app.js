@@ -54,6 +54,7 @@ function fillNames(text, idx) {
 const ICON = {
   back: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H6M11 6l-6 6 6 6"/></svg>',
   next: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg>',
+  info: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v6"/><circle cx="12" cy="7.6" r=".6" fill="currentColor"/></svg>',
   menu: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M5 7h14M5 12h14M5 17h14"/></svg>',
   close: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>',
   undo: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 14L4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 0 11H11"/></svg>',
@@ -170,6 +171,7 @@ function showStart() {
   currentView = showStart;
   const saved = loadGame();
   const el = mount(`<div class="pad screen">
+    ${LANG === "en" ? `<button class="icon-btn infobtn pop" data-info aria-label="${t("infoBtn")}">${ICON.info}</button>` : ""}
     <div class="tiles in"><div class="tile" style="background:${LEVEL_COLORS.laf[1][0]}">${FACES.relieved(LEVEL_COLORS.laf[1][1])}</div><div class="tile" style="background:${LEVEL_COLORS.lef[3][0]}">${FACES.shock(LEVEL_COLORS.lef[3][1])}</div></div>
     <h1 class="title disp in in-1">Lafbekken<small>${t("tagline")}</small></h1>
     <div class="grow"></div>
@@ -185,12 +187,39 @@ function showStart() {
     : showAge();
   const c = el.querySelector("[data-continue]");
   if (c) c.onclick = () => { G = saved; G.undo = G.undo || []; track("spel-hervat", "Spel hervat"); showPass(); };
+  const info = el.querySelector("[data-info]");
+  if (info) info.onclick = showDictionary;
   el.querySelector("[data-cards]").onclick = () => openManage(showStart);
   el.querySelector("[data-settings]").onclick = () => openSettings(showStart);
   el.querySelectorAll("[data-lang]").forEach(b => b.onclick = () => {
     if (b.dataset.lang === LANG) return;
     setLang(b.dataset.lang); CARDS = loadCards(); showStart();
   });
+}
+
+/* ---- Woordenboek (Engelse versie): wat betekenen laf en lef? ---- */
+const DICTIONARY = [
+  { word: "laf", ipa: "/lɑf/", pos: "adjective, Dutch", senses: [
+    ["Cowardly; lacking the nerve to do something.", "Don't be so laf, just press it."],
+    ["In this game: the safe choice. Safe, until you pick it too often.", ""]] },
+  { word: "lef", ipa: "/lɛf/", pos: "noun, Dutch", senses: [
+    ["Guts, nerve; the courage to take a risk.", "Now that took some serious lef."],
+    ["In this game: the risky choice. Always fifty-fifty, and the stakes keep rising.", ""]] },
+  { word: "lafbek", ipa: "/ˈlɑf.bɛk/", pos: "noun, Dutch, plural lafbekken", senses: [
+    ["A coward. Literally a cowardly beak.", "Sit down, lafbek."]] },
+];
+function showDictionary() {
+  buzz(10);
+  const ov = document.createElement("div");
+  ov.className = "overlay";
+  ov.innerHTML = `<div class="dim"></div><div class="modal dict" role="dialog" aria-modal="true" aria-label="${t("infoBtn")}">
+    ${DICTIONARY.map(d => `<section class="entry"><div class="hw"><span class="disp">${d.word}</span><span class="ipa">${d.ipa}</span></div><div class="pos">${d.pos}</div>
+      <ol>${d.senses.map(([def, ex]) => `<li>${def}${ex ? `<span class="ex">“${ex}”</span>` : ""}</li>`).join("")}</ol></section>`).join("")}
+    <button class="btn btn-ink btn-small" data-ok>${t("gotIt")}</button></div>`;
+  app.appendChild(ov);
+  const close = () => { ov.classList.add("closing"); setTimeout(() => ov.remove(), 300); };
+  ov.querySelector(".dim").onclick = close;
+  ov.querySelector("[data-ok]").onclick = close;
 }
 
 /* ---- Leeftijdscheck: bij elk nieuw spel het geboortejaar ---- */

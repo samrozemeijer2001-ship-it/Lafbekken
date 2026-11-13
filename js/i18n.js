@@ -118,7 +118,7 @@ const STR = {
     writeText: "Schrijf eerst een tekst voor de kaart", addedTo: "Toegevoegd aan {side} {n}", saved: "Opgeslagen", deleted: "Kaart verwijderd",
   },
   en: {
-    tagline: "Safe or risk?", newGame: "New game", continue: "Continue", manageCards: "Manage cards", settings: "Settings",
+    tagline: "Laf or lef?", newGame: "New game", continue: "Continue", manageCards: "Manage cards", settings: "Settings",
     playResponsibly: "Play responsibly, 18+ only", privacy: "Privacy",
     newGameQ: "New game?", newGameText: "Your saved game will be deleted.",
     back: "Back", next: "Next", start: "Start", cancel: "Cancel", yes: "Yes", close: "Close",
@@ -133,7 +133,7 @@ const STR = {
     round: "Round {n}", menu: "Menu", giveTo: "Pass to<br>{name}", noStreak: "No streak yet", tapWhenReady: "Tap when you have the phone",
     mustChoose: "{name} has to pick {side}", untilTurnOf: "until {name} turn", roundsLeft1: "{n} round left", roundsLeftN: "{n} rounds left",
     everyone: "Everyone", used: "used", nextTurn: "NEXT TURN", isUp: "{name}'s turn", activeN: "{n} active", activeSwipe: "swipe to see all {n}",
-    nothingActive: "No rules or powers active", safeSub: "Play it safe", riskSub: "All or nothing", toLevel: "to level {n}", toHeat: "to heat {n}",
+    nothingActive: "No rules or powers active", safeSub: "Play it safe", infoBtn: "What do laf and lef mean?", gotIt: "Got it", riskSub: "All or nothing", toLevel: "to level {n}", toHeat: "to heat {n}",
     blocked: "{name} MUST PICK {side}",
     fallbackWin: "{player}, there are no active cards here. Hand out 2 sips.", fallbackLose: "{player}, there are no active cards here. Take 2 sips.",
     reveal: "Reveal card", tapReveal: "Tap to reveal",
@@ -191,12 +191,12 @@ const LANG_DATA = {
     },
   },
   en: {
-    SIDE_NAME: { laf: "SAFE", lef: "RISK" }, LEVEL_NAME: { laf: "Level", lef: "Heat" },
+    SIDE_NAME: { laf: "LAF", lef: "LEF" }, LEVEL_NAME: { laf: "Level", lef: "Heat" },
     OUTCOME_NAME: { laf: { win: "Good", lose: "Bad" }, lef: { win: "Win", lose: "Loss" } },
     TYPE_NAME: { drink: "Penalties", challenge: "Challenge", social: "Together", punishment: "Penalty rule", power: "Power", event: "Event" },
     SIPS_TO_NAME: { deal: "Hand out", self: "Take yourself", others: "Everyone but you", all: "Everyone", right: "On your right", left: "On your left" },
     SCOPE_NAME: { self: "Themselves", all: "Everyone", pick: "Player picks someone", left: "Left", right: "Right" },
-    FORCE_NAME: { "": "None", "next-risk": "Next: RISK", "next-safe": "Next: SAFE", "self-risk": "Self: RISK", "self-safe": "Self: SAFE" },
+    FORCE_NAME: { "": "None", "next-risk": "Next: LEF", "next-safe": "Next: LAF", "self-risk": "Self: LEF", "self-safe": "Self: LAF" },
     DUR_NAME: { "tot volgende beurt": "until next turn", "1 ronde": "1 round", "2 rondes": "2 rounds", "3 rondes": "3 rounds", "tot gebruikt": "until used" },
     LABELS: {
       lef: ["Neutral", "Warm", "Risky", "Hot", "Overheated", "Burnt", "Out of control", "Dark red", "Black edges", "No way back", "Burnt out"],
